@@ -143,8 +143,8 @@ legal-clause-summarization/
 ├── requirements.txt
 ├── README.md
 ├── billsum_train.csv
-├── billsum_test.csv
-└── best_model_pgn_coverage_advanced.pt
+└── billsum_test.csv
+
 ```
 
 ---
