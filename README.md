@@ -1,25 +1,27 @@
 # Hybrid GRU-Based Pointer-Generator Network for Legal Clause Summarization
 
+> Deep Learning-based Legal Text Summarization using Bidirectional GRU, Pointer-Generator Networks, Coverage Attention, and Beam Search Decoding.
+
 ## Overview
 
-Legal documents are often lengthy and difficult to analyze efficiently. This project presents a deep learning-based legal text summarization system that automatically generates concise summaries of legal clauses and legislative documents.
+Legal documents are often lengthy, complex, and difficult to analyze manually. This project presents an abstractive legal text summarization system designed to generate concise and coherent summaries of legal clauses and legislative documents.
 
-The model combines a Bidirectional GRU Encoder, Pointer-Generator Network, Coverage Attention Mechanism, and Advanced Beam Search Decoding to improve summary quality while reducing repetition.
+The proposed architecture combines a Bidirectional GRU Encoder, Pointer-Generator Network, Coverage Attention Mechanism, and Beam Search Decoding to improve factual consistency, handle out-of-vocabulary legal terminology, and reduce repetitive text generation.
 
-This work was developed as part of a research project and was presented at an IEEE International Conference (I3CTCON 2026).
+This work was developed as a research project and was presented at the IEEE International Conference on Innovative Trends in Communication and Computer Technology (I3CTCON 2026).
 
 ---
 
-## Features
+## Key Features
 
-* Bidirectional GRU Encoder
-* Pointer-Generator Decoder
-* Coverage Attention Mechanism
-* Coverage Loss Annealing
-* Advanced Beam Search Decoding
-* Repetition Reduction using Coverage Vectors
-* ROUGE-based Evaluation
-* BillSum Legal Dataset Support
+* Bidirectional GRU Encoder for contextual understanding
+* Pointer-Generator Network for copying important legal terms
+* Coverage Attention Mechanism to reduce repetition
+* Coverage Loss Annealing during training
+* Beam Search Decoding for improved summary quality
+* ROUGE-based evaluation framework
+* BillSum legal dataset integration
+* End-to-end legal clause summarization pipeline
 
 ---
 
@@ -27,83 +29,95 @@ This work was developed as part of a research project and was presented at an IE
 
 ### BillSum Dataset
 
-BillSum is a corpus of U.S. Congressional and California state bills paired with human-written summaries.
+BillSum is a publicly available corpus of United States Congressional and California state legislative bills paired with expert-written summaries.
 
-Dataset Split:
+| Dataset Split | Samples |
+| ------------- | ------- |
+| Training Set  | 8,000   |
+| Test Set      | 500     |
 
-| Dataset  | Samples |
-| -------- | ------- |
-| Training | 8,000   |
-| Testing  | 500     |
+The dataset contains long-form legal documents requiring abstractive summarization while preserving critical legal information.
 
 ---
 
-## Model Architecture
+## System Architecture
 
+```text
 Input Legal Document
-↓
+        │
+        ▼
 Bidirectional GRU Encoder
-↓
-Coverage Attention
-↓
+        │
+        ▼
+Coverage Attention Layer
+        │
+        ▼
 Pointer-Generator Decoder
-↓
+        │
+        ▼
 Beam Search Decoding
-↓
-Generated Summary
+        │
+        ▼
+Generated Legal Summary
+```
 
-### Key Components
+---
 
-#### Bidirectional GRU Encoder
+## Core Components
 
-Captures contextual information from both past and future tokens.
+### Bidirectional GRU Encoder
 
-#### Coverage Attention
+Processes input text in both forward and backward directions to capture long-range contextual dependencies.
 
-Maintains a coverage vector that tracks previously attended words and reduces repeated phrases during generation.
+### Coverage Attention
 
-#### Pointer-Generator Network
+Maintains a coverage vector that tracks previously attended words, significantly reducing repetitive phrase generation.
 
-Allows the model to:
+### Pointer-Generator Network
 
-* Generate words from vocabulary
-* Copy important words directly from the source document
+Combines two mechanisms:
 
-#### Beam Search
+* Vocabulary-based word generation
+* Direct copying of important source tokens
 
-Generates higher-quality summaries by exploring multiple decoding paths simultaneously.
+This is particularly useful for handling legal terminology and rare entities.
+
+### Beam Search Decoding
+
+Generates higher-quality summaries by exploring multiple candidate sequences during inference.
 
 ---
 
 ## Technologies Used
 
-* Python
-* PyTorch
-* NumPy
-* Pandas
-* NLTK
-* ROUGE Score
-* Matplotlib
-* Scikit-learn
+| Category                   | Tools         |
+| -------------------------- | ------------- |
+| Programming Language       | Python        |
+| Deep Learning              | PyTorch       |
+| Data Processing            | Pandas, NumPy |
+| NLP                        | NLTK          |
+| Evaluation                 | ROUGE Score   |
+| Visualization              | Matplotlib    |
+| Machine Learning Utilities | Scikit-learn  |
 
 ---
 
 ## Training Configuration
 
-| Parameter     | Value                    |
-| ------------- | ------------------------ |
-| Encoder       | Bidirectional GRU        |
-| Decoder       | Pointer-Generator GRU    |
-| Attention     | Coverage Attention       |
-| Decoding      | Beam Search              |
-| Loss Function | NLL Loss + Coverage Loss |
-| Framework     | PyTorch                  |
+| Parameter         | Configuration            |
+| ----------------- | ------------------------ |
+| Encoder           | Bidirectional GRU        |
+| Decoder           | Pointer-Generator GRU    |
+| Attention         | Coverage Attention       |
+| Decoding Strategy | Beam Search              |
+| Loss Function     | NLL Loss + Coverage Loss |
+| Framework         | PyTorch                  |
 
 ---
 
 ## Results
 
-Evaluation was performed using ROUGE metrics.
+Performance was evaluated using standard ROUGE metrics.
 
 | Metric  | Score |
 | ------- | ----- |
@@ -111,19 +125,26 @@ Evaluation was performed using ROUGE metrics.
 | ROUGE-2 | 0.285 |
 | ROUGE-L | 0.363 |
 
-The coverage mechanism significantly reduced repetition while preserving important legal information.
+### Key Observations
+
+* Coverage attention reduced repetitive phrase generation.
+* Pointer-generator improved handling of legal terminology.
+* Beam search produced more coherent summaries compared to greedy decoding.
+* The model generated concise summaries while preserving important legal information.
 
 ---
 
-## Project Structure
+## Repository Structure
 
 ```text
+legal-clause-summarization/
+│
+├── legal_summarization.ipynb
+├── requirements.txt
+├── README.md
 ├── billsum_train.csv
 ├── billsum_test.csv
-├── legal_summarization.ipynb
-├── best_model_pgn_coverage_advanced.pt
-├── requirements.txt
-└── README.md
+└── best_model_pgn_coverage_advanced.pt
 ```
 
 ---
@@ -131,7 +152,7 @@ The coverage mechanism significantly reduced repetition while preserving importa
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/legal-clause-summarization.git
+git clone https://github.com/AnaghaHegde05/legal-clause-summarization.git
 
 cd legal-clause-summarization
 
@@ -140,43 +161,65 @@ pip install -r requirements.txt
 
 ---
 
-## Run the Project
+## Running the Project
 
 ```bash
 jupyter notebook legal_summarization.ipynb
 ```
 
-Train the model and generate summaries using the notebook.
+Run the notebook sequentially to:
+
+1. Load and preprocess the BillSum dataset
+2. Train the Pointer-Generator model
+3. Evaluate using ROUGE metrics
+4. Generate summaries for unseen legal documents
 
 ---
 
 ## Research Contribution
 
-Developed a hybrid GRU-based Pointer-Generator architecture with coverage attention for legal clause summarization. The work focused on reducing repetition, improving summary coherence, and generating concise legal summaries through advanced decoding strategies.
+This work proposes a hybrid GRU-based Pointer-Generator architecture enhanced with Coverage Attention for legal clause summarization.
+
+Major contributions include:
+
+* Reducing repetitive text generation through coverage mechanisms
+* Improving handling of legal terminology using pointer networks
+* Enhancing summary coherence through beam search decoding
+* Evaluating performance on a real-world legal summarization dataset
 
 ---
 
-## Future Improvements
+## Future Work
 
-* Transformer-based legal summarization
-* Domain-specific legal language modeling
-* Multi-document summarization
-* Deployment using FastAPI
-* Interactive summarization web interface
-
----
-
-## Author
-
-Anagha Hegde
-
-B.E. Computer Science Engineering
-KLE Technological University
+* Transformer-based legal summarization models
+* LegalBERT integration
+* Multi-document legal summarization
+* FastAPI deployment for real-time inference
+* Web-based summarization interface
+* Explainable AI techniques for summary interpretation
 
 ---
 
 ## Publication
 
-Hybrid GRU-Based Pointer-Generator Model for Legal Clause-Level Summarization
+**Hybrid GRU-Based Pointer-Generator Model for Legal Clause-Level Summarization**
 
-Presented at IEEE International Conference on Innovative Trends in Communication and Computer Technology (I3CTCON 2026).
+Presented at:
+
+**IEEE International Conference on Innovative Trends in Communication and Computer Technology (I3CTCON 2026)**
+
+---
+
+## Author
+
+**Anagha Hegde**
+
+B.E. Computer Science Engineering
+KLE Technological University
+
+Interests:
+
+* Artificial Intelligence
+* Machine Learning
+* Natural Language Processing
+* Intelligent Systems
