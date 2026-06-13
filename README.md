@@ -141,9 +141,7 @@ legal-clause-summarization/
 │
 ├── legal_summarization.ipynb
 ├── requirements.txt
-├── README.md
-├── billsum_train.csv
-└── billsum_test.csv
+└── README.md
 
 ```
 
